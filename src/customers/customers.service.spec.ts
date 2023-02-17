@@ -1,3 +1,4 @@
+import { DuplicateCpfException } from './exceptions/duplicateCPF.exception';
 import { InvalidCpfException } from './exceptions/invalidCPF.excpetion';
 import { PrismaService } from '../prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -28,7 +29,7 @@ describe('CustomersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CustomersService],
+      providers: [CustomersService, PrismaService],
     }).compile();
 
     service = module.get<CustomersService>(CustomersService);
@@ -48,6 +49,21 @@ describe('CustomersService', () => {
     const customer = await service.create(data);
 
     expect(customer).toBeDefined();
+  });
+  it('should return an error when field cpf is duplicated', async () => {
+    //Arrange
+    const data: Prisma.CustomerCreateInput = {
+      name: 'Rafael',
+      cpf: '111.444.777-35',
+      birthday: '25/08/1998',
+    };
+
+    try {
+      await service.create(data);
+      await service.create(data);
+    } catch (error) {
+      expect(error).toEqual(new DuplicateCpfException());
+    }
   });
   it('should return an error with http status 400 when field name is not passed', async () => {
     //Arrange
