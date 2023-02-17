@@ -6,6 +6,8 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { CustomersService } from './customers.service';
 import { InsufficientFieldsException } from './exceptions/insufficientFields.exception';
 import { ConfigService } from '../config/config.service';
+import { NotFoundCustomerException } from './exceptions/not-found-customer.exception';
+import { InvalidDateException } from './exceptions/invalidDate.exception';
 
 describe('CustomersService', () => {
   const config = new ConfigService();
@@ -20,6 +22,7 @@ describe('CustomersService', () => {
 
   beforeAll(async () => {
     await prisma.$connect();
+    await prisma.customer.deleteMany();
   });
 
   afterAll(async () => {
@@ -33,6 +36,9 @@ describe('CustomersService', () => {
     }).compile();
 
     service = module.get<CustomersService>(CustomersService);
+  });
+  afterEach(async () => {
+    await prisma.customer.deleteMany();
   });
 
   it('should be defined', () => {
@@ -49,6 +55,81 @@ describe('CustomersService', () => {
     const customer = await service.create(data);
 
     expect(customer).toBeDefined();
+  });
+  it('should create and return an array of customers successfuly', async () => {
+    //Arrange
+    const data1: Prisma.CustomerCreateInput = {
+      name: 'Rafael',
+      cpf: '111.444.777-35',
+      birthday: '25-08-1998',
+    };
+
+    const data2: Prisma.CustomerCreateInput = {
+      name: 'Rafael',
+      cpf: '823.525.790-40',
+      birthday: '25-08-1998',
+    };
+
+    await service.create(data1);
+    await service.create(data2);
+
+    const test = await service.findAll();
+
+    expect(test).toBeDefined();
+    expect(test).toHaveLength(2);
+  });
+  it('should create and return an unique existent customer', async () => {
+    //Arrange
+    const data: Prisma.CustomerCreateInput = {
+      name: 'Rafael',
+      cpf: '111.444.777-35',
+      birthday: '25-08-1998',
+    };
+
+    await service.create(data);
+
+    const test = await service.findOne(data.cpf);
+
+    expect(test).toBeDefined();
+    expect(test.cpf).toEqual(data.cpf);
+  });
+  it('should return an error if a non-existent cpf is passed', async () => {
+    //Arrange
+    const nonExistentCPF = '111.444.777-35';
+
+    try {
+      await service.findOne(nonExistentCPF);
+    } catch (error) {
+      expect(error).toEqual(new NotFoundCustomerException());
+    }
+  });
+  it('should return an error if a invalid date is passed', async () => {
+    //Arrange
+    const data: Prisma.CustomerCreateInput = {
+      name: 'Rafael',
+      cpf: '111.444.777-35',
+      birthday: '35/08/1998',
+    };
+
+    try {
+      await service.create(data);
+    } catch (error) {
+      expect(error).toEqual(new InvalidDateException());
+    }
+  });
+  it('should return an error if a invalid date is passed in a wrong format', async () => {
+    //Arrange
+    const data: Prisma.CustomerCreateInput = {
+      name: 'Rafael',
+      cpf: '111.444.777-35',
+      birthday: 'wrong format',
+    };
+
+    try {
+      await service.create(data);
+    } catch (error) {
+      expect(error).toEqual(new InvalidDateException());
+    }
   });
   it('should return an error when field cpf is duplicated', async () => {
     //Arrange
