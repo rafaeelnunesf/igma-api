@@ -1,12 +1,14 @@
-import { InvalidCpfException } from './exceptions/invalidCPF.excpetion';
-import { InsufficientFieldsException } from './exceptions/insufficientFields.exception';
 import { Injectable } from '@nestjs/common';
 import { Customer, Prisma } from '@prisma/client';
-import { PrismaService } from '../prisma.service';
-import { InvalidDateException } from './exceptions/invalidDate.exception';
+import { PrismaService } from '../config/prisma.service';
 import cpfValidation from '../validation/cpf.validation';
-import { DuplicateCpfException } from './exceptions/duplicateCPF.exception';
-import { NotFoundCustomerException } from './exceptions/not-found-customer.exception';
+import {
+  NotFoundCustomerException,
+  DuplicateCpfException,
+  InsufficientFieldsException,
+  InvalidCpfException,
+  InvalidDateException,
+} from './errors/';
 
 @Injectable()
 export class CustomersService {

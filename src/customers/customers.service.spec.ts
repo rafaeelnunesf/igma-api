@@ -1,13 +1,16 @@
-import { DuplicateCpfException } from './exceptions/duplicateCPF.exception';
-import { InvalidCpfException } from './exceptions/invalidCPF.excpetion';
-import { PrismaService } from '../prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { CustomersService } from './customers.service';
-import { InsufficientFieldsException } from './exceptions/insufficientFields.exception';
+import { PrismaService } from '../config/prisma.service';
 import { ConfigService } from '../config/config.service';
-import { NotFoundCustomerException } from './exceptions/not-found-customer.exception';
-import { InvalidDateException } from './exceptions/invalidDate.exception';
+
+import {
+  NotFoundCustomerException,
+  DuplicateCpfException,
+  InsufficientFieldsException,
+  InvalidCpfException,
+  InvalidDateException,
+} from './errors/';
 
 describe('CustomersService', () => {
   const config = new ConfigService();
