@@ -6,6 +6,7 @@ import { PrismaService } from '../prisma.service';
 import { InvalidDateException } from './exceptions/invalidDate.exception';
 import cpfValidation from '../validation/cpf.validation';
 import { DuplicateCpfException } from './exceptions/duplicateCPF.exception';
+import { NotFoundCustomerException } from './exceptions/not-found-customer.exception';
 
 @Injectable()
 export class CustomersService {
@@ -18,10 +19,13 @@ export class CustomersService {
 
     if (!cpfValidation(data.cpf)) throw new InvalidCpfException();
 
-    const existentCPF = await this.findOne(data.cpf);
+    const existentCPF = await this.prisma.customer.findUnique({
+      where: { cpf: data.cpf },
+    });
+
     if (existentCPF) throw new DuplicateCpfException();
 
-    const date = this.string2Date(data.birthday);
+    const date = this.stringToDate(data.birthday);
 
     return this.prisma.customer.create({
       data: {
@@ -36,12 +40,16 @@ export class CustomersService {
   }
 
   async findOne(cpf: string): Promise<Customer> {
-    return this.prisma.customer.findUnique({
+    const customer = await this.prisma.customer.findUnique({
       where: { cpf },
     });
+
+    if (!customer) throw new NotFoundCustomerException();
+
+    return customer;
   }
 
-  string2Date(date) {
+  stringToDate(date) {
     const match = /^(\d{2})([-\/.]?)(\d{2})\2(\d{4})$/.exec(date);
 
     if (match) {

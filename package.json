@@ -16,11 +16,10 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "dotenv -e .env.test -- jest -i",
     "test:watch": "dotenv -e .env.test -- jest --watch -i",
-    "test:cov": "dotenv -e .env.test jest --coverage",
+    "test:cov": "dotenv -e .env.test -- jest --coverage -i",
     "test:debug": "dotenv -e .env.test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "dotenv -e .env.test jest --config ./test/jest-e2e.json",
-    "test:load-envs": "dotenv -e .env.test",
-    "prisma:migrate:test": "dotenv -e .env.test npx prisma migrate dev"
+    "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate dev"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
