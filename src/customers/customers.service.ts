@@ -3,7 +3,7 @@ import { Customer, Prisma } from '@prisma/client';
 import { PrismaService } from '../config/prisma.service';
 import cpfValidation from '../validation/cpf.validation';
 import {
-  NotFoundCustomerException,
+  CustomerNotFoundException,
   DuplicateCpfException,
   InsufficientFieldsException,
   InvalidCpfException,
@@ -46,7 +46,7 @@ export class CustomersService {
       where: { cpf },
     });
 
-    if (!customer) throw new NotFoundCustomerException();
+    if (!customer) throw new CustomerNotFoundException();
 
     return customer;
   }

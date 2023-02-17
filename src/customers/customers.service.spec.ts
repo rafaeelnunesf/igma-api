@@ -5,7 +5,7 @@ import { PrismaService } from '../config/prisma.service';
 import { ConfigService } from '../config/config.service';
 
 import {
-  NotFoundCustomerException,
+  CustomerNotFoundException,
   DuplicateCpfException,
   InsufficientFieldsException,
   InvalidCpfException,
@@ -103,7 +103,7 @@ describe('CustomersService', () => {
     try {
       await service.findOne(nonExistentCPF);
     } catch (error) {
-      expect(error).toEqual(new NotFoundCustomerException());
+      expect(error).toEqual(new CustomerNotFoundException());
     }
   });
   it('should return an error if a invalid date is passed', async () => {
