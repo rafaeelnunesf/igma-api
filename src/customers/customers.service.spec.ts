@@ -1,3 +1,4 @@
+import { InvalidCpfException } from './exceptions/invalidCPF.excpetion';
 import { PrismaService } from '../prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma, PrismaClient } from '@prisma/client';
@@ -78,6 +79,22 @@ describe('CustomersService', () => {
     } catch (error) {
       //Assert
       expect(error).toEqual(new InsufficientFieldsException());
+    }
+  });
+  it('should return an error when field cpf is invalid', async () => {
+    //Arrange
+    const data: Prisma.CustomerCreateInput = {
+      name: 'Rafael',
+      cpf: 'invalid cpf',
+      birthday: '25/08/1998',
+    };
+
+    try {
+      //Act
+      await service.create(data);
+    } catch (error) {
+      //Assert
+      expect(error).toEqual(new InvalidCpfException());
     }
   });
   it('should return an error with http status 400 when field name is not passed', async () => {

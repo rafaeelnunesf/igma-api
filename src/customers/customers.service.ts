@@ -1,7 +1,8 @@
+import { InvalidCpfException } from './exceptions/invalidCPF.excpetion';
 import { InsufficientFieldsException } from './exceptions/insufficientFields.exception';
 import { Injectable } from '@nestjs/common';
 import { Customer, Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma.service';
+import cpfValidation from '../validation/cpf.validation';
 
 @Injectable()
 export class CustomersService {
@@ -11,6 +12,9 @@ export class CustomersService {
     if (!data.birthday || !data.cpf || !data.name) {
       throw new InsufficientFieldsException();
     }
+
+    if (!cpfValidation(data.cpf)) throw new InvalidCpfException();
+
     return this.prisma.customer.create({
       data: {
         ...data,
