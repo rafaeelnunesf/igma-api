@@ -4,7 +4,9 @@
 
 # enviroment variables
 *.env
-.env.*
+*.env.test
+*.env.development
+*.env.production
 
 # Logs
 logs
