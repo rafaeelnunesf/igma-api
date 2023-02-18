@@ -58,9 +58,6 @@ npm run start
 
 # watch mode
 npm run start:dev
-
-# production mode
-npm run start:prod
 ```
 
 ## Testing
@@ -88,7 +85,7 @@ npm run test:watch
 npm run test:cov
 ```
 
-Note: For this test I used the sqlite database for simplification purposes, as I used Prisma ORM it is extremely easy to change to other types of supported databases, such as postgreSQL, mySQL and others.
+Note: For this project I used the sqlite database for simplification purposes, as I used Prisma ORM it is extremely easy to change to other types of supported databases, such as postgreSQL, mySQL and others.
 
 During development I used postgres, but when I went to test it on windows I realized that it would be more complicated, so with just a few lines of code it was possible to change databases without wasting much time.
 
