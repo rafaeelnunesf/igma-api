@@ -34,17 +34,15 @@ Connect with me at [LinkedIn](https://www.linkedin.com/in/rafaeelnunesf).
 
 1. Clone this repository
 
-2. Clone the backend repository available [here!](https://github.com/rafaeelnunesf/igma-api)
-3. Follow instructions to run backend available [here!](https://github.com/rafaeelnunesf/igma-api)
-4. Install dependencies
+2. Install dependencies
 
 ```bash
 npm install
 ```
 
-5. Rename the `.env example` file to `.env`
+3. Rename the `.env example` file to `.env`
 
-6. Create a database file
+4. Create a database file
 
 ```bash
 npm run create-db
