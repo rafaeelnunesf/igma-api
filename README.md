@@ -15,6 +15,7 @@ The following tools and frameworks were used in the construction of the project:
   <img alt="Typescript" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
   <img alt="NestJS" src="https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white"/>
   <img alt="Postgres" src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white"/>
+  <img alt="SQLITE" src=https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white"/>
   <img alt="Prisma" src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white"/>
   <img alt="Jest" src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white"/>
   <img alt="Node.js"src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white"/>
@@ -49,7 +50,7 @@ npm install
 npm run create-db
 ```
 
-## Running the app
+#### Running the app
 
 ```bash
 # development
@@ -62,6 +63,8 @@ npm run start:dev
 npm run start:prod
 ```
 
+## Testing
+
 For run the tests you will need:
 
 1. Copy the `.env.test example` file and rename to `.env.test`
@@ -72,7 +75,7 @@ For run the tests you will need:
 npm run create-db:test
 ```
 
-## Test
+#### Running the tests
 
 ```bash
 # unit tests
@@ -83,4 +86,60 @@ npm run test:watch
 
 # test coverage
 npm run test:cov
+```
+
+Note: For this test I used the sqlite database for simplification purposes, as I used Prisma ORM it is extremely easy to change to other types of supported databases, such as postgreSQL, mySQL and others.
+
+During development I used postgres, but when I went to test it on windows I realized that it would be more complicated, so with just a few lines of code it was possible to change databases without wasting much time.
+
+## Routes
+
+The base URL is: http://localhost:3000
+
+### Customers
+
+On this route you can create a customer:
+| **url** | **Method** | Body Params | URL Params | Success Response | Error Responses |
+| -------------------- | ---------- | ----------- | --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| /customers | `POST` | **Example:**<br />{<br />"name":"Rafael", <br />cpf: "111.444.777-35", <br />"birthday": "25/08/1998"<br />} | - | **Code:** 201 - Created | **Code:** 400 - Bad Request!<br />**Content:** `{"message": "You must enter all required fields"}` <br/><br /> **Code:** 400 - Bad Request!<br />**Content:** `{"message":  "Invalid CPF!"}` <br/><br />**Code:** 409 - Conflict! <br />**Content:** `{"message": "This CPF is already registered!"}` |
+On this route you can get many customers:
+| **url** | **Method** | Body Params | URL Params | Success Response | Error Response |
+| ------------- | ---------- | ------------------------------------- | ---------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| /customers | `GET` |- | - | **Code:** 200 - OK<br />**Content:**<br /> Array of [Customers](#Customers) | - |
+
+On this route you can get one customer by cpf:
+| **url** | **Method** | Body Params | URL Params | Success Response | Error Response |
+| ----------------------- | ---------- | ----------- | --------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| /customers/:cpf | `GET` | - | **Required:**<br /> cpf: String | **Code:** 200 - OK<br />**Content:** <br/>[Customer](#Customer) | **Code:** 404 - Not Found<br />**Content:** `{"message": "Customer not found!"}` |
+
+### Models
+
+#### Customers
+
+```
+[
+  {
+    "id": 1,
+    "name": "Rafael",
+    "cpf": "111.444.777-35",
+    "birthday": "1998-08-28T03:00:00.000Z"
+  }
+  {
+    "id": 2,
+    "name": "Another Rafael",
+    "cpf": "045.755.782-66",
+    "birthday": "1998-08-28T03:00:00.000Z"
+  }
+]
+```
+
+#### Customer
+
+```
+{
+  "id": 1,
+  "name": "Rafael",
+  "cpf": "111.444.777-35",
+  "birthday": "1998-08-28T03:00:00.000Z"
+}
 ```
