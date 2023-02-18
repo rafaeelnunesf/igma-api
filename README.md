@@ -102,10 +102,12 @@ On this route you can create a customer:
 | **url** | **Method** | Body Params | URL Params | Success Response | Error Responses |
 | -------------------- | ---------- | ----------- | --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | /customers | `POST` | **Example:**<br />{<br />"name":"Rafael", <br />cpf: "111.444.777-35", <br />"birthday": "25/08/1998"<br />} | - | **Code:** 201 - Created | **Code:** 400 - Bad Request!<br />**Content:** `{"message": "You must enter all required fields"}` <br/><br /> **Code:** 400 - Bad Request!<br />**Content:** `{"message":  "Invalid CPF!"}` <br/><br />**Code:** 409 - Conflict! <br />**Content:** `{"message": "This CPF is already registered!"}` |
+
 On this route you can get many customers:
 | **url** | **Method** | Body Params | URL Params | Success Response | Error Response |
 | ------------- | ---------- | ------------------------------------- | ---------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | /customers | `GET` |- | - | **Code:** 200 - OK<br />**Content:**<br /> Array of [Customers](####Customers) | - |
+
 On this route you can get one customer by cpf:
 | **url** | **Method** | Body Params | URL Params | Success Response | Error Response |
 | ----------------------- | ---------- | ----------- | --------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
