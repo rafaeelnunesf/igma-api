@@ -41,7 +41,7 @@ Connect with me at [LinkedIn](https://www.linkedin.com/in/rafaeelnunesf).
 npm install
 ```
 
-5. rename the `.env example` file to `.env`
+5. Rename the `.env example` file to `.env`
 
 6. Create a database file
 
@@ -64,7 +64,7 @@ npm run start:prod
 
 For run the tests you will need:
 
-1. Copy the `.env` file and rename to `.env.test`
+1. Copy the `.env.test example` file and rename to `.env.test`
 
 2. Create a testing database file
 
