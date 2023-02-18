@@ -96,7 +96,7 @@ During development I used postgres, but when I went to test it on windows I real
 
 The base URL is: http://localhost:3000
 
-### Customers
+### Customers Routes
 
 On this route you can create a customer:
 | **url** | **Method** | Body Params | URL Params | Success Response | Error Responses |
@@ -106,12 +106,12 @@ On this route you can create a customer:
 On this route you can get many customers:
 | **url** | **Method** | Body Params | URL Params | Success Response | Error Response |
 | ------------- | ---------- | ------------------------------------- | ---------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| /customers | `GET` |- | - | **Code:** 200 - OK<br />**Content:**<br /> Array of [Customers](####Customers) | - |
+| /customers | `GET` |- | - | **Code:** 200 - OK<br />**Content:**<br /> Array of [Customers](#Customers) | - |
 
 On this route you can get one customer by cpf:
 | **url** | **Method** | Body Params | URL Params | Success Response | Error Response |
 | ----------------------- | ---------- | ----------- | --------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| /customers/:cpf | `GET` | - | **Required:**<br /> cpf: String | **Code:** 200 - OK<br />**Content:** <br/>[Customer](####Customer) | **Code:** 404 - Not Found<br />**Content:** `{"message": "Customer not found!"}` |
+| /customers/:cpf | `GET` | - | **Required:**<br /> cpf: String | **Code:** 200 - OK<br />**Content:** <br/>[Customer](#Customer) | **Code:** 404 - Not Found<br />**Content:** `{"message": "Customer not found!"}` |
 
 ### Models
 
