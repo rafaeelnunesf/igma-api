@@ -41,6 +41,14 @@ Connect with me at [LinkedIn](https://www.linkedin.com/in/rafaeelnunesf).
 $ npm install
 ```
 
+5. Create a database file
+
+```bash
+$ npm run create-db
+```
+
+6. rename the `.env example` file to `.env`
+
 ## Running the app
 
 ```bash
@@ -52,6 +60,16 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+For run the tests you will need:
+
+1. Copy the `.env` file and rename to `.env.test`
+
+2. Create a testing database file
+
+```bash
+$ npm run create-db:test
 ```
 
 ## Test

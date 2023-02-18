@@ -19,7 +19,8 @@
     "test:cov": "dotenv -e .env.test -- jest --coverage -i",
     "test:debug": "dotenv -e .env.test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "dotenv -e .env.test jest --config ./test/jest-e2e.json",
-    "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate dev"
+    "create-db": "npx prisma migrate dev --name db --create-only",
+    "create-db:test": "dotenv -e .env.test -- npx prisma migrate dev --name test-db --create-only"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

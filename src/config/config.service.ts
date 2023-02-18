@@ -6,8 +6,10 @@ import * as dotenv from 'dotenv';
 @Injectable()
 export class ConfigService extends NestConfigService {
   constructor() {
-    const env = process.env.NODE_ENV || 'development';
-    const envFile = `.env.${env}`;
+    const env = process.env.NODE_ENV;
+    let envFile;
+    env !== undefined ? (envFile = `.env.${env}`) : (envFile = '.env');
+
     const config = dotenv.parse(fs.readFileSync(envFile));
     super({ envFilePath: envFile, isGlobal: true, load: [() => config] });
   }
