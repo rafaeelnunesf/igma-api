@@ -38,28 +38,28 @@ Connect with me at [LinkedIn](https://www.linkedin.com/in/rafaeelnunesf).
 4. Install dependencies
 
 ```bash
-$ npm install
+npm install
 ```
 
-5. Create a database file
+5. rename the `.env example` file to `.env`
+
+6. Create a database file
 
 ```bash
-$ npm run create-db
+npm run create-db
 ```
-
-6. rename the `.env example` file to `.env`
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+npm run start
 
 # watch mode
-$ npm run start:dev
+npm run start:dev
 
 # production mode
-$ npm run start:prod
+npm run start:prod
 ```
 
 For run the tests you will need:
@@ -69,18 +69,18 @@ For run the tests you will need:
 2. Create a testing database file
 
 ```bash
-$ npm run create-db:test
+npm run create-db:test
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+npm run test
 
 # unit tests in watch mode
-$ npm run test:watch
+npm run test:watch
 
 # test coverage
-$ npm run test:cov
+npm run test:cov
 ```
