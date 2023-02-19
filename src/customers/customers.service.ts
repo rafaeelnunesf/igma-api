@@ -37,13 +37,14 @@ export class CustomersService {
     });
   }
 
-  async findAll(params): Promise<Customer[]> {
-    let { limit, page } = params;
+  async findAll(params?): Promise<Customer[]> {
+    let limit = params?.limit;
+    let page = params?.page;
 
-    if (params.limit) limit = parseInt(params.limit);
+    if (params?.limit) limit = parseInt(params.limit);
     else limit = 10;
 
-    if (params.page) page = parseInt(params.page);
+    if (params?.page) page = parseInt(params.page);
     else page = 1;
 
     const offset = (page - 1) * limit;
