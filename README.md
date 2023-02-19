@@ -70,6 +70,12 @@ For run the tests you will need:
 npm run create-db:test
 ```
 
+4. Populate the database running this command:
+
+```bash
+npx prisma db seed
+```
+
 #### Running the tests
 
 ```bash

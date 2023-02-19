@@ -22,6 +22,9 @@
     "create-db": "npx prisma migrate dev --name db",
     "create-db:test": "dotenv -e .env.test -- npx prisma migrate dev --name test-db"
   },
+  "prisma": {
+    "seed": "dotenv -e .env.test -- ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
