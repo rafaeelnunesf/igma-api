@@ -37,8 +37,21 @@ export class CustomersService {
     });
   }
 
-  async findAll(): Promise<Customer[]> {
-    return this.prisma.customer.findMany({});
+  async findAll(params): Promise<Customer[]> {
+    let { limit, page } = params;
+
+    if (params.limit) limit = parseInt(params.limit);
+    else limit = 10;
+
+    if (params.page) page = parseInt(params.page);
+    else page = 1;
+
+    const offset = (page - 1) * limit;
+
+    return this.prisma.customer.findMany({
+      skip: offset,
+      take: limit,
+    });
   }
 
   async findOne(cpf: string): Promise<Customer> {

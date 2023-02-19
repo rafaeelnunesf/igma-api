@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { Customer, Prisma } from '@prisma/client';
 import { CustomersService } from './customers.service';
 
@@ -12,8 +12,8 @@ export class CustomersController {
   }
 
   @Get()
-  findAll(): Promise<Customer[]> {
-    return this.customersService.findAll();
+  findAll(@Query() params): Promise<Customer[]> {
+    return this.customersService.findAll(params);
   }
 
   @Get(':cpf')
